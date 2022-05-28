@@ -1,7 +1,6 @@
 import React, { forwardRef, ForwardRefRenderFunction } from 'react'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { FormControl, FormErrorMessage, FormLabel, Input as ChakraInput, InputProps as ChakraInputProps, InputLeftElement, InputGroup } from '@chakra-ui/react'
-import { FaExclamation} from 'react-icons/fa'
 import { FieldError } from 'react-hook-form'
 import { IconType } from 'react-icons/lib'
 import { resourceUsage } from 'process'
@@ -33,12 +32,11 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 { name, error = null, icon:Icon, label, ...rest }, ref 
 ) => {
 
-    // const inputsRef = useRef<HTMLInputElement>(null)
+  // const inputsRef = useRef<HTMLInputElement>(null)
 
   const [variation, setVariation] = useState('default')
   const [value, setValue]         = useState('')
   
-
   useEffect(() => {
 
     if(error) {
