@@ -1,33 +1,46 @@
 import { Box, Button, Flex, Grid, Heading, Image, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import { FaEnvelope, FaLock } from 'react-icons/fa'
 import Logo from '../../assets/logo-secondary.svg'
 import {Input} from '../../components/Form/Input'
+import { useAuth } from '../../contexts/AuthContext'
 
 interface SignInData {
   email: string,
   password: string,
-  // onSubmit: SubmitHandler<FormValues>,
 }
 
 export const Login = () => {
 
-  const [loading, setLoading] = useState(false)
+  const [ loading, setLoading ] = useState(false)
+  const { signIn, user } = useAuth()
 
   const signInSchema = yup.object().shape({
     email: yup.string().required("Email obrigatório!").email('Email inválido!'),
-    password: yup.string().required('Senha obrigatória!').min(8, 'Mínimo de 8 caracteres!'),
+    password: yup.string().required('Senha obrigatória!'),
   })
+
+
+  console.log(user);
 
   const { formState: { errors }, register, handleSubmit} = useForm<SignInData>({
     resolver: yupResolver(signInSchema)
   })
   
-  const handleSignIn = (data: SignInData) => console.log(data)
+  const handleSignIn = ({ email, password }: SignInData) => {
+
+    setLoading(true)
+
+    signIn({ email, password })
+      .then((_) => setLoading(false))
+      .catch((err) => setLoading(false))
+
+    
+  }
 
   return (
     <Flex
