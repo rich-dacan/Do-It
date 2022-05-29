@@ -24,7 +24,6 @@ export const Login = () => {
     password: yup.string().required('Senha obrigatória!'),
   })
 
-
   console.log(user);
 
   const { formState: { errors }, register, handleSubmit} = useForm<SignInData>({
