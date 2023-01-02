@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
   return (
     <Flex
       borderBottom={"1px solid #f5f5f5"}
-      p={"2px 60px"}
+      p={["2px 20px", "2px 60px"]}
       alignItems={"center"}
       justifyContent={"space-around"}
       w={"100%"}
