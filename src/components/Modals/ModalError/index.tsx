@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -17,36 +18,56 @@ import { FaExclamation } from "react-icons/fa";
 
 interface ModalErrorProps {
   isOpen: boolean;
+  error?: string;
+  buttonMessage: string;
+  secondaryText: string;
   onClose: () => void;
 }
 
-export const ModalError: React.FC<ModalErrorProps> = ({ isOpen, onClose }) => {
+export const ModalError: React.FC<ModalErrorProps> = ({
+  isOpen,
+  error,
+  buttonMessage,
+  secondaryText,
+  onClose,
+}) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
+        <ModalHeader borderBottom={"1px solid #ccc"}>
           <Flex>
             <Center
               bg={"red.600"}
               color={"white"}
               mr={"7px"}
-              width={"25px"}
+              width={"30px"}
               height={"30px"}
               borderRadius={"5px"}
             >
               <FaExclamation />
             </Center>
-            <Text textAlign={"center"}>Oops...</Text>
+            <Text fontWeight={"700"} textAlign={"center"}>
+              Oops...
+            </Text>
           </Flex>
         </ModalHeader>
         <ModalCloseButton
+          mt={"7px"}
           bg={"red.600"}
           color={"white"}
           _hover={{ bg: "red" }}
         />
-        <ModalBody>
-          <Text textAlign={"center"}>Ocorreu algum erro!</Text>
+        <ModalBody pt={"25px"}>
+          <Text textAlign={"center"}>
+            {error ? (
+              <p>
+                Ocorreu o seguinte erro: <b>"{error}!"</b>
+              </p>
+            ) : (
+              "Ocorreu algum erro!"
+            )}
+          </Text>
         </ModalBody>
 
         <ModalFooter>
@@ -58,11 +79,14 @@ export const ModalError: React.FC<ModalErrorProps> = ({ isOpen, onClose }) => {
               _hover={{ bg: "red" }}
               onClick={onClose}
             >
-              Tentar novamente
+              {buttonMessage}
             </Button>
             <Text m={"20px 0 30px 0"} textAlign={"center"}>
-              Você já pode tentar novamente, <b>clicando</b> no botão acima ou
-              aguarde alguns minutos...
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: secondaryText,
+                }}
+              />
             </Text>
           </Flex>
         </ModalFooter>
