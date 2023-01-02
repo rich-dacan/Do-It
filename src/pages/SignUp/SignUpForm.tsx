@@ -18,7 +18,6 @@ export const SignUpForm: React.FC<LoginFormProps> = ({
   register,
   loading,
 }) => {
-
   return (
     <Grid
       onSubmit={handleSignUp}
@@ -31,10 +30,11 @@ export const SignUpForm: React.FC<LoginFormProps> = ({
       color="gray.900"
       mt={["4", "4", "0"]}
       w={["100%", "100%", "40%", "40%"]}
+      boxShadow={"-5px 5px 10px 1px #9e9ea7;"}
     >
       <Heading size="lg"> Crie sua conta </Heading>
       <VStack mt="6" spacing="5">
-      <Box w="100%">
+        <Box w="100%">
           <Input
             placeholder="Digite seu nome"
             type="name"
@@ -79,7 +79,7 @@ export const SignUpForm: React.FC<LoginFormProps> = ({
           error={errors.confirmPassword}
           icon={FaLock}
           {...register("confirmPassword")}
-          />
+        />
       </VStack>
       <Button
         type="submit"

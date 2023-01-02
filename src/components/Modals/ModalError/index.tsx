@@ -71,7 +71,7 @@ export const ModalError: React.FC<ModalErrorProps> = ({
         </ModalBody>
 
         <ModalFooter>
-          <Flex flexDirection={"column"}>
+          <Flex flexDirection={"column"} w={"100%"}>
             <Button
               variant="solid"
               bg="red.600"

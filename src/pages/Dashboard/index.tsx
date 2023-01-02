@@ -1,17 +1,12 @@
-import { Button, Flex, Heading } from '@chakra-ui/react'
-import React from 'react'
-import { useAuth } from '../../contexts/AuthContext'
+import { Box } from "@chakra-ui/react";
+import React from "react";
+
+import { Header } from "../../components/Header";
 
 export const Dashboard = () => {
-  const { signOut } = useAuth();
   return (
-    <Flex justify={"space-around"} color={"purple.500"}>
-
-      <Heading as={'h1'}>
-        Dashboard
-      </Heading>
-      <Button onClick={ signOut }> Logout </Button>
-      
-    </Flex>
-  )
+    <Box>
+      <Header />
+    </Box>
+  );
 };
