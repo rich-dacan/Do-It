@@ -1,5 +1,6 @@
-import { Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
+// import ReactHtmlParser from 'react-html-parser';
+import { Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,7 +29,8 @@ const signUpSchema = yup.object().shape({
 // }
 
 export const SignUp: React.FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const history = useHistory();
 
   const isWideVersion = useBreakpointValue({
@@ -68,18 +70,32 @@ export const SignUp: React.FC = () => {
       .catch(err => {
         setLoading(false);
         onModalErrorOpen();
+        setError(err.response.data);
       });
   };
 
   return (
     <>
       <ModalSuccess
+        message="Seu cadastro deu super certo, <b>vamos lá</b>"
+        buttonMessage={"Ir para o login agora"}
+        secondaryText={
+          "Você já pode começar criando <b>suas listas</b> de tarefas agora mesmo..."
+        }
         isOpen={isModalSuccessOpen}
         onClose={onModalSuccessClose}
         redirect={() => history.push("/")}
       />
 
-      <ModalError isOpen={isModalErrorOpen} onClose={onModalErrorClose} />
+      <ModalError
+        isOpen={isModalErrorOpen}
+        onClose={onModalErrorClose}
+        error={error}
+        buttonMessage={"Tentar novamente"}
+        secondaryText={
+          "Você já pode tentar novamente, <b>clicando</b> no botão acima ou aguarde alguns minutos..."
+        }
+      />
 
       <Flex
         padding={["10px 15px 50px 15px", "10 15px", "0px", "0px"]}
