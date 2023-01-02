@@ -24,6 +24,7 @@ export const SignUpInfo: React.FC = () => {
         src={Logo}
         alt={"do_it_logo"}
         boxSize={["120px", "120px", "250px"]}
+        filter={"drop-shadow(15px 5px 5px #000)"}
       />
 
       <VStack spacing={["6", "14"]} m={["20px 0", "0"]}>
