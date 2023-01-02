@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import {
+  Box,
   Button,
   Center,
   Flex,
@@ -17,12 +18,18 @@ import { FaExclamation } from "react-icons/fa";
 
 interface ModalSuccessProps {
   isOpen: boolean;
+  message: string;
+  buttonMessage: string;
+  secondaryText: string;
   onClose: () => void;
   redirect?: () => void;
 }
 
 export const ModalSuccess: React.FC<ModalSuccessProps> = ({
   isOpen,
+  message,
+  buttonMessage,
+  secondaryText,
   onClose,
   redirect,
 }) => {
@@ -30,29 +37,36 @@ export const ModalSuccess: React.FC<ModalSuccessProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
+        <ModalHeader borderBottom={"1px solid #ccc"}>
           <Flex>
             <Center
               bg={"purple.500"}
               color={"white"}
               mr={"7px"}
-              width={"25px"}
+              width={"30px"}
               height={"30px"}
               borderRadius={"5px"}
             >
               <FaExclamation size={20} />
             </Center>
-            <Text textAlign={"center"}>Yesss...</Text>
+            <Text fontWeight={"bold"} textAlign={"center"}>
+              Yesss...
+            </Text>
           </Flex>
         </ModalHeader>
         <ModalCloseButton
+          mt={"7px"}
           bg={"red.600"}
           color={"white"}
           _hover={{ bg: "red" }}
         />
         <ModalBody>
           <Text textAlign={"center"}>
-            Seu cadastro deu super certo, <b>vamos lá</b>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: message,
+              }}
+            />
           </Text>
         </ModalBody>
 
@@ -66,11 +80,14 @@ export const ModalSuccess: React.FC<ModalSuccessProps> = ({
               _hover={{ bg: "purple.800" }}
               onClick={redirect}
             >
-              Ir para o login agora
+              {buttonMessage}
             </Button>
             <Text m={"20px 0 30px 0"} textAlign={"center"}>
-              Você já pode começar criando <b>suas listas</b> de tarefas agora
-              mesmo...
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: secondaryText,
+                }}
+              />
             </Text>
           </Flex>
         </ModalFooter>
