@@ -1,4 +1,4 @@
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -7,6 +7,9 @@ import { SignUpInfo } from "./SignUpInfo";
 import { SignUpForm } from "./SignUpForm";
 import { GoBackButton } from "../../components/Buttons/GoBackButton";
 import { useHistory } from "react-router-dom";
+import { api } from "../../services/api";
+import { ModalSuccess } from "../../components/Modals/ModalSuccess";
+import { ModalError } from "../../components/Modals/ModalError";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -34,6 +37,18 @@ export const SignUp: React.FC = () => {
   });
 
   const {
+    isOpen: isModalSuccessOpen,
+    onOpen: onModalSuccessOpen,
+    onClose: onModalSuccessClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isModalErrorOpen,
+    onOpen: onModalErrorOpen,
+    onClose: onModalErrorClose,
+  } = useDisclosure();
+
+  const {
     formState: { errors },
     register,
     handleSubmit,
@@ -41,62 +56,82 @@ export const SignUp: React.FC = () => {
     resolver: yupResolver(signUpSchema),
   });
 
-  const handleSignUp = (data: any) => {
+  const handleSignUp = ({ name, email, password }: any) => {
     setLoading(true);
-    console.log(data);
+
+    api
+      .post("/register", { name, email, password })
+      .then(res => {
+        setLoading(false);
+        onModalSuccessOpen();
+      })
+      .catch(err => {
+        setLoading(false);
+        onModalErrorOpen();
+      });
   };
 
   return (
-    <Flex
-      padding={["10px 15px", "10 15px", "0px", "0px"]}
-      alignItems="center"
-      justifyContent="center"
-      height={["auto", "auto", "100vh", "100vh"]}
-      bgGradient={[
-        "linear(to-b, purple.800 65%, white 35%)",
-        "linear(to-b, purple.800 65%, white 35%)",
-        "linear(to-l, purple.800 65%, white 35%)",
-        "linear(to-l, purple.800 65%, white 35%)",
-      ]}
-      color="white"
-    >
+    <>
+      <ModalSuccess
+        isOpen={isModalSuccessOpen}
+        onClose={onModalSuccessClose}
+        redirect={() => history.push("/")}
+      />
+
+      <ModalError isOpen={isModalErrorOpen} onClose={onModalErrorClose} />
+
       <Flex
-        w={["100%", "100%", "90%", "65%"]}
+        padding={["10px 15px 50px 15px", "10 15px", "0px", "0px"]}
+        alignItems="center"
         justifyContent="center"
-        flexDirection={["column", "column", "row", "row"]}
+        height={["auto", "auto", "100vh", "100vh"]}
+        bgGradient={[
+          "linear(to-b, purple.800 65%, white 35%)",
+          "linear(to-b, purple.800 65%, white 35%)",
+          "linear(to-l, purple.800 65%, white 35%)",
+          "linear(to-l, purple.800 65%, white 35%)",
+        ]}
+        color="white"
       >
-        {isWideVersion ? (
-          <>
-            <GoBackButton
-              top="50px"
-              left="35px"
-              comeBack={() => history.push("/")}
-            />
-            <SignUpForm
-              errors={errors}
-              handleSignUp={handleSubmit(handleSignUp)}
-              loading={loading}
-              register={register}
-            />
-            <SignUpInfo />
-          </>
-        ) : (
-          <>
-            <GoBackButton
-              top="25px"
-              left="75vw"
-              comeBack={() => history.push("/")}
-            />
-            <SignUpInfo />
-            <SignUpForm
-              errors={errors}
-              handleSignUp={handleSubmit(handleSignUp)}
-              loading={loading}
-              register={register}
-            />
-          </>
-        )}
+        <Flex
+          w={["100%", "100%", "90%", "65%"]}
+          justifyContent="center"
+          flexDirection={["column", "column", "row", "row"]}
+        >
+          {isWideVersion ? (
+            <>
+              <GoBackButton
+                top="50px"
+                left="35px"
+                comeBack={() => history.push("/")}
+              />
+              <SignUpForm
+                errors={errors}
+                handleSignUp={handleSubmit(handleSignUp)}
+                loading={loading}
+                register={register}
+              />
+              <SignUpInfo />
+            </>
+          ) : (
+            <>
+              <GoBackButton
+                top="28px"
+                left="75vw"
+                comeBack={() => history.push("/")}
+              />
+              <SignUpInfo />
+              <SignUpForm
+                errors={errors}
+                handleSignUp={handleSubmit(handleSignUp)}
+                loading={loading}
+                register={register}
+              />
+            </>
+          )}
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
