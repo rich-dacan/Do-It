@@ -3,7 +3,7 @@ import React from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
 export const Dashboard = () => {
-  const { signOut } = useAuth()
+  const { signOut } = useAuth();
   return (
     <Flex justify={"space-around"} color={"purple.500"}>
 
@@ -14,4 +14,4 @@ export const Dashboard = () => {
       
     </Flex>
   )
-}
+};
