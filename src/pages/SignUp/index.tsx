@@ -48,7 +48,7 @@ export const SignUp: React.FC = () => {
 
   return (
     <Flex
-      padding={["10px 15px", "10 15px", "0px", "0px"]}
+      padding={["10px 15px 50px 15px", "10 15px", "0px", "0px"]}
       alignItems="center"
       justifyContent="center"
       height={["auto", "auto", "100vh", "100vh"]}
@@ -83,7 +83,7 @@ export const SignUp: React.FC = () => {
         ) : (
           <>
             <GoBackButton
-              top="25px"
+              top="28px"
               left="75vw"
               comeBack={() => history.push("/")}
             />

@@ -26,7 +26,7 @@ export const SignUpInfo: React.FC = () => {
         boxSize={["120px", "120px", "250px"]}
       />
 
-      <VStack spacing="14">
+      <VStack spacing={["6", "14"]} m={["20px 0", "0"]}>
         <Flex alignItems={"center"} w={"100%"}>
           <Center borderRadius="5px" bg="white" w="50px" h="50px" mr={"15px"}>
             <FaForward color={theme.colors.purple["800"]} size={25} />
