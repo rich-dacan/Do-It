@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoginInfo } from "./LoginInfo";
 import { LoginForm } from "./LoginForm";
@@ -17,7 +17,7 @@ interface SignInData {
   password: string;
 }
 
-export const Login = () => {
+export const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const { signIn } = useAuth();
@@ -30,7 +30,7 @@ export const Login = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const handleSignIn = ({ email, password}: any) => {
+  const handleSignIn = ({ email, password }: any) => {
     setLoading(true);
     signIn({ email, password })
       .then((_) => setLoading(false))

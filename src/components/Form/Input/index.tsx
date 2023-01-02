@@ -68,7 +68,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           !! Converte pra boolean
           Se label existir, renderize <FormLabel/>
       */}
-      {!!label && <FormLabel>{ label }</FormLabel>}
+      {!!label && <FormLabel color='gray.400'>{ label }</FormLabel>}
 
       <InputGroup flexDirection={"column"}>
       {Icon && 
