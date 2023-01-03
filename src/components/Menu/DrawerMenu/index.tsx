@@ -26,7 +26,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ isOpen, onClose }) => {
   return (
     <>
       <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay mt={"9vh"} />
+        <DrawerOverlay mt={["15vh", "9vh"]} />
         <DrawerContent ml={"auto"} mt={"80px"} w={["450px", "350px"]}>
           <DrawerHeader
             borderBottomWidth="1px"
@@ -36,7 +36,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ isOpen, onClose }) => {
             {user.name}
           </DrawerHeader>
           <DrawerBody m={"20px 0px"}>
-            <Flex>
+            <Flex alignItems={"center"}>
               <Center
                 w={"60px"}
                 height={"60px"}
