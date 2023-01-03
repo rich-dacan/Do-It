@@ -32,6 +32,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       color="gray.900"
       mt={["4", "4", "0"]}
       w={["100%", "100%", "40%", "40%"]}
+      boxShadow={"5px 5px 10px 1px #9e9ea7;"}
     >
       <Heading size="lg"> Bem vindo de volta!</Heading>
       <VStack mt="6" spacing="5">

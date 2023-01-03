@@ -77,7 +77,7 @@ export const SignUp: React.FC = () => {
   return (
     <>
       <ModalSuccess
-        message="Seu cadastro deu super certo, <b>vamos lá</b>"
+        message="Seu cadastro deu super certo, <b>vamos lá!</b>"
         buttonMessage={"Ir para o login agora"}
         secondaryText={
           "Você já pode começar criando <b>suas listas</b> de tarefas agora mesmo..."
