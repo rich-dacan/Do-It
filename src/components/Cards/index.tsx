@@ -7,6 +7,7 @@ export const MainCard: React.FC = () => {
   return (
     <Box
       m={["0px", "35px 60px"]}
+      ml={["10px"]}
       w={["90vw", "456px"]}
       p={["10px", "20px 25px"]}
       cursor={"pointer"}
